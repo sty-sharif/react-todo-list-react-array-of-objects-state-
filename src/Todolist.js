@@ -8,7 +8,12 @@ import Table from "react-bootstrap/Table";
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faPencil,
+  faCheck,
+  faClose,
+} from "@fortawesome/free-solid-svg-icons";
 import "./todolist.css";
 import AppNavbar from "./components/AppNavbar";
 
@@ -124,42 +129,62 @@ const Todolist = () => {
                 <tbody key={employee.id}>
                   <tr>
                     <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.family}</td>
                     <td>
-                      <button
-                        className="divitem"
-                        variant="danger"
-                        onClick={() => removeObjectFromArray(employee)}
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
-                      <button
-                        className="divitem"
-                        variant="warning"
-                        onClick={() => startEditingEmployee(employee)}
-                      >
-                        <FontAwesomeIcon icon={faPencil} />
-                      </button>
-                      {editingEmployeeId === employee.id && (
-                        <div>
-                          <input
-                            type="text"
-                            value={editingName}
-                            onChange={(e) => setEditingName(e.target.value)}
-                          />
-                          <input
-                            type="text"
-                            value={editingFamily}
-                            onChange={(e) => setEditingFamily(e.target.value)}
-                          />
-                          <button
-                            className="divitem"
-                            onClick={(e) => updateObjectInArray(employee)}
-                          >
-                            <FontAwesomeIcon icon={faCheck} />
-                          </button>
-                        </div>
+                      {editingEmployeeId === employee.id ? (
+                        <input
+                          type="text"
+                          value={editingName}
+                          onChange={(e) => setEditingName(e.target.value)}
+                        />
+                      ) : (
+                        employee.name
+                      )}
+                    </td>
+                    <td>
+                      {editingEmployeeId === employee.id ? (
+                        <input
+                          type="text"
+                          value={editingFamily}
+                          onChange={(e) => setEditingFamily(e.target.value)}
+                        />
+                      ) : (
+                        employee.family
+                      )}
+                    </td>
+                    <td>
+                      {editingEmployeeId === employee.id ? (
+                        <Button
+                          className="divitem"
+                          variant="danger"
+                          onClick={() => setEditingEmployeeId(null)}
+                        >
+                          <FontAwesomeIcon icon={faClose} />
+                        </Button>
+                      ) : (
+                        <Button
+                          className="divitem"
+                          variant="danger"
+                          onClick={() => removeObjectFromArray(employee)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                      )}
+                      {editingEmployeeId === employee.id ? (
+                        <Button
+                          className="divitem"
+                          variant="success"
+                          onClick={() => updateObjectInArray(employee)}
+                        >
+                          <FontAwesomeIcon icon={faCheck} />
+                        </Button>
+                      ) : (
+                        <Button
+                          className="divitem"
+                          variant="warning"
+                          onClick={() => startEditingEmployee(employee)}
+                        >
+                          <FontAwesomeIcon icon={faPencil} />
+                        </Button>
                       )}
                     </td>
                   </tr>
