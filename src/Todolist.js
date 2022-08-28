@@ -27,7 +27,6 @@ const Todolist = () => {
   const [creatingFamily, setCreatingFamily] = useState("");
   const [editingName, setEditingName] = useState("");
   const [editingFamily, setEditingFamily] = useState("");
-  const lastValue = Object.values(employees).pop();
   const [editingEmployeeId, setEditingEmployeeId] = useState(null);
 
   const add = (e) => {
@@ -37,7 +36,11 @@ const Todolist = () => {
 
       setEmployees((objectList) => [
         ...objectList,
-        { id: lastValue.id + 1, name: creatingName, family: creatingFamily },
+        {
+          id: employees.length + 1,
+          name: creatingName,
+          family: creatingFamily,
+        },
       ]);
       setCreatingName("");
       setCreatingFamily("");
