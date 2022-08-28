@@ -23,25 +23,24 @@ const Todolist = () => {
   ];
 
   const [employees, setEmployees] = useState(initialState);
-  const [namee, setNamee] = useState("");
-  const [familyy, setFamilyy] = useState("");
-  const [nameeu, setNameeu] = useState("");
-  const [familyyu, setFamilyyu] = useState("");
+  const [creatingName, setCreatingName] = useState("");
+  const [creatingFamily, setCreatingFamily] = useState("");
+  const [editingName, setEditingName] = useState("");
+  const [editingFamily, setEditingFamily] = useState("");
   const lastValue = Object.values(employees).pop();
-  const [flag, setFlag] = useState(null);
-  console.log(lastValue.id);
+  const [editingEmployeeId, setEditingEmployeeId] = useState(null);
 
   const add = (e) => {
     e.preventDefault();
-    if (((namee && familyy) || "").trim().length !== 0) {
+    if (((creatingName && creatingFamily) || "").trim().length !== 0) {
       console.log("input value is NOT empty");
 
       setEmployees((objectList) => [
         ...objectList,
-        { id: lastValue.id + 1, name: namee, family: familyy },
+        { id: lastValue.id + 1, name: creatingName, family: creatingFamily },
       ]);
-      setNamee("");
-      setFamilyy("");
+      setCreatingName("");
+      setCreatingFamily("");
     } else {
       console.log("input value is empty");
       setEmployees([...employees]);
@@ -52,13 +51,13 @@ const Todolist = () => {
     setEmployees((current) =>
       current.map((obj) => {
         if (obj.id === employee.id) {
-          return { ...obj, name: nameeu, family: familyyu };
+          return { ...obj, name: editingName, family: editingFamily };
         }
 
         return obj;
       })
     );
-    setFlag(null);
+    setEditingEmployeeId(null);
   };
 
   const removeObjectFromArray = (employee) => {
@@ -68,7 +67,7 @@ const Todolist = () => {
       })
     );
   };
-  console.log(flag);
+
   return (
     <>
       <Navbar bg="dark" variant="dark" sticky="top">
@@ -103,18 +102,18 @@ const Todolist = () => {
                 type="text"
                 id="fname"
                 name="firstname"
-                value={namee}
+                value={creatingName}
                 placeholder="Your name.."
-                onChange={(e) => setNamee(e.target.value)}
+                onChange={(e) => setCreatingName(e.target.value)}
               ></input>
               <label>Last Name</label>
               <input
                 type="text"
                 id="lname"
                 name="lastname"
-                value={familyy}
+                value={creatingFamily}
                 placeholder="Your last name.."
-                onChange={(e) => setFamilyy(e.target.value)}
+                onChange={(e) => setCreatingFamily(e.target.value)}
               ></input>
               <Button variant="primary" onClick={add}>
                 Add
@@ -154,24 +153,24 @@ const Todolist = () => {
                       <button
                         className="divitem"
                         variant="warning"
-                        onClick={() => setFlag(employee.id)}
+                        onClick={() => setEditingEmployeeId(employee.id)}
                       >
                         <FontAwesomeIcon icon={faPencil} />
                       </button>
-                      {flag === employee.id ? (
+                      {editingEmployeeId === employee.id ? (
                         <div>
                           <input
                             type="text"
                             id="message1"
                             name="message"
-                            onChange={(e) => setNameeu(e.target.value)}
+                            onChange={(e) => setEditingName(e.target.value)}
                             defaultValue={employee.name}
                           />
                           <input
                             type="text"
                             id="message2"
                             name="message"
-                            onChange={(e) => setFamilyyu(e.target.value)}
+                            onChange={(e) => setEditingFamily(e.target.value)}
                             defaultValue={employee.family}
                           />
                           <button
