@@ -10,11 +10,7 @@ import Table from "react-bootstrap/Table";
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faPencil,
-  faRefresh,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
 import "./todolist.css";
 const Todolist = () => {
   const initialState = [
@@ -69,6 +65,12 @@ const Todolist = () => {
         return obj.id !== employee.id;
       })
     );
+  };
+
+  const startEditingEmployee = (employee) => {
+    setEditingEmployeeId(employee.id);
+    setEditingName(employee.name);
+    setEditingFamily(employee.family);
   };
 
   return (
@@ -156,36 +158,30 @@ const Todolist = () => {
                       <button
                         className="divitem"
                         variant="warning"
-                        onClick={() => setEditingEmployeeId(employee.id)}
+                        onClick={() => startEditingEmployee(employee)}
                       >
                         <FontAwesomeIcon icon={faPencil} />
                       </button>
-                      {editingEmployeeId === employee.id ? (
+                      {editingEmployeeId === employee.id && (
                         <div>
                           <input
                             type="text"
-                            id="message1"
-                            name="message"
+                            value={editingName}
                             onChange={(e) => setEditingName(e.target.value)}
-                            defaultValue={employee.name}
                           />
                           <input
                             type="text"
-                            id="message2"
-                            name="message"
+                            value={editingFamily}
                             onChange={(e) => setEditingFamily(e.target.value)}
-                            defaultValue={employee.family}
                           />
                           <button
                             className="divitem"
                             onClick={(e) => updateObjectInArray(employee)}
                           >
-                            <FontAwesomeIcon icon={faRefresh} />
+                            <FontAwesomeIcon icon={faCheck} />
                           </button>
                         </div>
-                      ) : (
-                        <div></div>
-                      )}{" "}
+                      )}
                     </td>
                   </tr>
                 </tbody>
