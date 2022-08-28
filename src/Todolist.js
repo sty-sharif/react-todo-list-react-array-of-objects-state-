@@ -1,7 +1,5 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Reacticonsvg from "./images/React-icon.svg.png";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -12,6 +10,8 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
 import "./todolist.css";
+import AppNavbar from "./components/AppNavbar";
+
 const Todolist = () => {
   const initialState = [
     { id: 1, name: "Alice", family: "Lane" },
@@ -75,28 +75,7 @@ const Todolist = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" sticky="top">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src={Reacticonsvg}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{" "}
-            React
-          </Navbar.Brand>
-
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>React Todo List</Navbar.Text>
-          </Navbar.Collapse>
-
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Brand href="#home">GitHub</Navbar.Brand>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <AppNavbar />
       <br />
       <Container>
         <Row>
